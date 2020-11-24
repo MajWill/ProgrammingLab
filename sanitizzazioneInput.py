@@ -3,7 +3,7 @@ class CSVFile:
     def __init__(self, nome):
         self.nome = nome
 
-    def get_data(self):
+    def get_data(self, start=None, end=None):
         valori = [] #creo una lista per i valori
         try:
             my_file = open(self.nome, 'r') #apro il file
@@ -25,5 +25,5 @@ class CSVFile:
         my_file.close()        
         return valori
 
-prova_file = CSVFile('shampoo_saless.csv')
+prova_file = CSVFile('shampoo_sales.csv')
 print(prova_file.get_data())
