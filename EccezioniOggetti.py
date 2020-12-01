@@ -23,14 +23,12 @@ class CSVFile:
                 #aggiungo solo le vendite alla list dei valori
                     valori.append(float(value)) 
                 except ValueError:
-                    print("Errore nella riga ({}) perchè valore incorretto".format(line))
-                
-#chiudo il file
+                    print("Errore nella riga ({}) perchè valore incorretto".format(line))       
+        #chiudo il file
         my_file.close()
         if(start==None and end==None):
             return valori
         elif(start>end):
-            #print("Valori incorretti per restituzione valori")
             return "Valori incorretti per restituzione dati"
         else:
             try:
