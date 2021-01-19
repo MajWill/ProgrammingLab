@@ -1,29 +1,31 @@
 class ExamException(Exception):
     pass
 
-class MovingAverage:
+class Diff:
 
-    def __init__(self, window):
-        self.fin = window
+    def __init__(self,ratio=1):
+        if((isinstance(ratio, int))==False or ratio<=0):
+            raise ExamException("Errore valore di ratio")
+        else:
+            self.ratio=ratio
 
     def compute(self, lista):
         controllo = isinstance(lista, list)
-        if(len(lista)==0 or lista==None or controllo!=True):
-            raise ExamException("Errore: lista vuota")
-        elif(len(lista)<self.fin or self.fin<=0):
-            raise ExamException("Errore:  la finestra supera la lista oppure è nulla")
+        if(lista==None or controllo!=True or len(lista)==0):
+            raise ExamException("Errore: lista vuota o errata")
+        elif(len(lista)<2):
+            raise ExamException("Errore: la lista non soddisfa la lunghezza minima di 2")
         else:
             valori = []
-            lung = len(lista) - self.fin + 1
+            lung = len(lista) - 1
             for i in range(lung):
-                finestra = lista[i:i+self.fin]
-                #print(finestra)
-                somma = 0
-                for j in range(len(finestra)):
-                    somma = somma + finestra[j]
-                valori.append(float(somma/self.fin))
+                if((isinstance(lista[i],(int,float))==True)) and ((isinstance(lista[i+1],(int,float)))==True):
+                    valori.append(float((lista[i+1]-lista[i])/self.ratio))
+                else:
+                    raise ExamException("Errore: tipo non numerico all'interno della lista")
             return valori
 
-moving_average = MovingAverage()
-result = moving_average.compute([2,4,8,16])
+diff = Diff()
+result = diff.compute([2,4,8,16])
 print(result)
+            
